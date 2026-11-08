@@ -1,9 +1,23 @@
 실행 명령: python -m unittest discover -s . -p "test_*.py"
 
-Ran 5 tests in 0.001s
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.011s
 OK
 
-data.json 자동 분석 결과:
-- size_3_1: Cross=1, X=5, expected=X, PASS
-- size_5_1: Cross=9, X=1, expected=Cross, PASS
+모드 1 실제 실행:
+- 요구 예시(필터 A=Cross, 필터 B=X, 패턴=X): A 점수 1.0 / B 점수 5.0 / 평균 MAC 시간 0.021260 ms (10회) / 최종 판정 B
+- A 점수 5.0 / B 점수 5.0
+- 평균 MAC 시간 0.015180 ms (10회)
+- 최종 판정: 판정 불가
+
+모드 2 실제 실행:
+- size_3_1: Cross=1.0, X=5.0, expected=X, PASS
+- size_5_1: Cross=9.0, X=1.0, expected=Cross, PASS
 - 전체 2건 / PASS 2 / FAIL 0
+
+크기 | 평균 ms(10회) | N² 연산 수
+3 | 0.007940 | 9
+5 | 0.016950 | 25
+13 | 0.090750 | 169
+25 | 0.344320 | 625

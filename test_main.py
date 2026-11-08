@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from main import analyze_json, classify, generate_pattern, mac_1d, mac_2d
+from main import analyze_json, classify, generate_pattern, mac_1d, mac_2d, performance_table, run_mode1
 
 
 class MacTests(unittest.TestCase):
@@ -14,7 +14,8 @@ class MacTests(unittest.TestCase):
         self.assertEqual(mac_1d(pattern, pattern), 5)
 
     def test_tie_classification(self):
-        self.assertEqual(classify(1.0, 1.0 + 1e-10), "UNDECIDED")
+        self.assertEqual(classify(1.0, 1.0 + 1e-10, "mode1"), "판정 불가")
+        self.assertEqual(classify(1.0, 1.0 + 1e-10, "mode2"), "UNDECIDED")
 
     def test_json_analysis(self):
         results = analyze_json(Path(__file__).with_name("data.json"))
@@ -29,6 +30,13 @@ class MacTests(unittest.TestCase):
     def test_invalid_matrix(self):
         with self.assertRaises(ValueError):
             mac_2d([[float("nan")]], [[1]])
+
+    def test_performance_table_and_mode1_report(self):
+        table = performance_table((3, 5), 10)
+        self.assertEqual([row["operations"] for row in table], [9, 25])
+        values = iter(["0 1 0", "1 1 1", "0 1 0"] * 3)
+        result = run_mode1(lambda _: next(values))
+        self.assertIn("average_ms", result)
 
 
 if __name__ == "__main__":
