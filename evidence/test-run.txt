@@ -1,0 +1,9 @@
+실행 명령: python -m unittest discover -s . -p "test_*.py"
+
+Ran 5 tests in 0.001s
+OK
+
+data.json 자동 분석 결과:
+- size_3_1: Cross=1, X=5, expected=X, PASS
+- size_5_1: Cross=9, X=1, expected=Cross, PASS
+- 전체 2건 / PASS 2 / FAIL 0
